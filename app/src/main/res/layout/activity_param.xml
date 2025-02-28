@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ParamActivity">
+
+    <SeekBar
+        android:id="@+id/seekBarNbCycles"
+        style="@android:style/Widget.Material.Light.SeekBar"
+        android:layout_width="106dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toEndOf="@+id/seekBarMinRandom"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNbCycle" />
+
+    <TextView
+        android:id="@+id/textViewMinRandom"
+        android:layout_width="60dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="8dp"
+        android:text="Min rnd :"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchProg" />
+
+    <TextView
+        android:id="@+id/textViewNbCycle"
+        android:layout_width="91dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="8dp"
+        android:text="Nb cycles :"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewMinRandom"
+        app:layout_constraintTop_toBottomOf="@+id/switchProg" />
+
+    <SeekBar
+        android:id="@+id/seekBarMinRandom"
+        style="@android:style/Widget.Material.Light.SeekBar"
+        android:layout_width="106dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMinRandom" />
+
+    <SeekBar
+        android:id="@+id/seekBarMaxRandom"
+        style="@android:style/Widget.Material.Light.SeekBar"
+        android:layout_width="105dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMaxRandom" />
+
+    <SeekBar
+        android:id="@+id/seekBarCleanTime"
+        style="@android:style/Widget.Material.Light.SeekBar"
+        android:layout_width="105dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toEndOf="@+id/seekBarMaxRandom"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCycleTime" />
+
+    <TextView
+        android:id="@+id/textViewMaxRandom"
+        android:layout_width="60dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="4dp"
+        android:text="Max rnd :"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarMinRandom" />
+
+    <TextView
+        android:id="@+id/textViewCycleTime"
+        android:layout_width="125dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="4dp"
+        android:text="Durée cycle"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewMaxRandom"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarNbCycles" />
+
+    <Switch
+        android:id="@+id/switchProg"
+        android:layout_width="186dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:scaleX="0.75"
+        android:scaleY="0.75"
+        android:text="Mode programmation"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timePickerProg" />
+
+    <Switch
+        android:id="@+id/switchLog"
+        android:layout_width="178dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="160dp"
+        android:scaleX="0.75"
+        android:scaleY="0.75"
+        android:text="Activer les logs"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <TimePicker
+        android:id="@+id/timePickerProg"
+        android:layout_width="211dp"
+        android:layout_height="185dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:timePickerMode="spinner"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+    <TextView
+        android:id="@+id/textViewAdr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/brocker_adr"
+        android:textAlignment="center"
+        android:textColor="@color/teal_700"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextServerAddr"
+        android:layout_width="369dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/teal_700"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAdr" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="409dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="24dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarCleanTime"
+        tools:layout_editor_absoluteX="1dp"
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="16dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/editTextServerAddr"
+        tools:layout_editor_absoluteX="1dp"
+        tools:ignore="MissingConstraints" />
+
+</android.support.constraint.ConstraintLayout>

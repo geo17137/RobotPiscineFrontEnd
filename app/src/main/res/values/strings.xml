@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Robot piscine</string>
+    <string name="cnx_nok">Robot non connecté</string>
+    <string name="mqtt_ok">Courtier connecté</string>
+    <string name="cnx_ok">Connecté au robot</string>
+    <string name="text_none"></string>
+    <string name="text_status">Status connexion</string>
+    <string name="reboot">RAZ cycle</string>
+    <string name="mqtt_nok">Courtier non connecté</string>
+    <string name="cycle_stopping">Cycle à l\'arrèt</string>
+    <string name="manual_stop">Arrêt commande manuelle</string>
+    <string name="no_cycle_running">Pas de cycle en cours</string>
+    <string name="cycle_running">Cycle en cours</string>
+    <string name="prog_cycle_running">Cycle programmé en cours</string>
+    <string name="forward">Avance</string>
+    <string name="reverse">Recule</string>
+    <string name="exit">Quitter</string>
+    <string name="mode_prog">Programme activé</string>
+    <string name="mode_nprog">Programme desactivé</string>
+    <string name="log_en">Logs activés</string>
+    <string name="log_dis">Logs désactivés</string>
+    <string name="title">Démarrer/arrêter un cycle</string>
+    <string name="cycle_n_prog">Pas de cycle programmé</string>
+    <string name="cycle_prog">Cycle programmé à</string>
+    <string name="brocker_adr">Adresse du courtier</string>
+    <string name="text_duree">Durée commande</string>
+</resources>

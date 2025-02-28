@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+    <item
+        android:id="@+id/id_action_exit"
+        android:orderInCategory="150"
+        android:icon="@mipmap/ic_quit"
+        app:showAsAction="ifRoom"
+        android:title="@string/exit" />
+    <item
+        android:id="@+id/id_action_logs"
+        android:enabled="false"
+        android:orderInCategory="103"
+        android:title="Voir les logs" />
+    <item
+        android:id="@+id/id_action_reboot"
+        android:enabled="false"
+        android:orderInCategory="107"
+        android:title="@string/reboot" />
+    <item
+        android:orderInCategory="101"
+        android:id="@+id/id_a_propos"
+        android:title="A propos" />
+    <item
+        android:id="@+id/id_action_param"
+        android:enabled="false"
+        android:orderInCategory="102"
+        android:title="Paramètres" />
+</menu>
