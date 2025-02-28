@@ -8,5 +8,3 @@ L'application permet :<br>
 - Le paramétrage des cycles de nettoyage<br>
 - La consultation de l'historique des cycles de nettoyage<br>
   
-Capture d'écrans<br>
-https://github.com/geo17137/RobotPiscineFrontEnd/tree/master/AppScreens
