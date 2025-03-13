@@ -1,6 +1,20 @@
 /*
- * Interface de commande robot piscine
+ * Commande de porte de garage
+ * Version 2.0
+ * Cette version contrairement à la version 1.x
+ * utilise un capteur en position ouverte et
+ * un capteur en position fermée.
+ * Cela permet d'être certain que mécanisme a bien fermé
+ * la porte et permet de savoir si la porte n'est pas entre deux positions.
  */
+/*
+ * Pilotage porte garage V4.0
+ * V4.0 Utilise le protocole MQTT à la place de Apache/php
+ * Utilise un fichier pour paramètrer les alertes
+ * Ajout de version 3.1 : 2 fermetures automatiques programmables
+ * Ajout de version 3.2 : 2 pas d'authentification si wifi local connecté
+ */
+/* TODO gérer les activations des menus */
 package com.dt.robotpiscine;
 
 import android.Manifest;
@@ -36,9 +50,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
-  final static boolean isPublicServeur = Secret.isPublicServeur;
-  static final String ADDRESS = Secret.ADDRESS;
+//  final static boolean isPublicServeur = true;
+//  final String ADDRESS = "tcp://test.mosquitto.org:1883";
+// // final String ADDRESS = "tcp://broker.mqttdashboard.com:1883";
+//// Adresse valable uniquement pour CNX WiFi
+//  //final String ADDRESS = "tcp://192.168.1.205:1883";
+//  // Force à new address
+//  final boolean FORCE = false;
   final String PREFIX = Secret.PREFIX;
+
   static final int SEEK_BAR_MIN_RANDOM_MIN = 10;
   static final int SEEK_BAR_MIN_RANDOM_MAX = 40;
   static final int SEEK_BAR_MAX_RANDOM_MAX = 100;
@@ -94,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
   private MenuItem item_menu_param;
   private MenuItem item_menu_reboot;
   private boolean isScheduled;
-  private boolean mqttServerConnected;
+
 
 
   @Override
@@ -111,10 +131,25 @@ public class MainActivity extends AppCompatActivity {
   public void onDestroy() {
     super.onDestroy();
   }
+
+  public String getAddress(boolean force, String address) {
+    SharedPreferences prefs;
+    prefs = getPreferences(Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor;
+    editor = prefs.edit();
+    String brocker = prefs.getString("brocker", null);
+    if (brocker == null || force) {
+      editor.putString("brocker", address);
+      editor.commit();
+      return Secret.ADDRESS;
+    }
+    return brocker;
+  }
+
   @SuppressLint("MissingInflatedId")
   private void startApp() {
     String serverAddress = null;
-    serverAddress = Secret.ADDRESS;
+    serverAddress = getAddress(false, Secret.ADDRESS);
     Unic.getInstance().setServerAddress(serverAddress);
     if (serverAddress == null)
       System.exit(1);
@@ -194,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
         buttonStopCycle.setVisibility(View.INVISIBLE);
       }
     });
-    buttonStop       = findViewById(R.id.imageButtonStop);
+    buttonStop = findViewById(R.id.imageButtonStop);
     buttonStop.setEnabled(true);
     buttonStop.setVisibility(View.VISIBLE);
     buttonStop.setOnClickListener(new View.OnClickListener() {
@@ -219,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
       private boolean first = true;
       @Override
       public void run() {
-        if (!mqttServerConnected) {
+        if (!mqttHelper.isConnected()) {
           textViewCnxStatus.setText(getString(R.string.mqtt_nok));
           textViewCnxStatus.setTextColor(Color.RED);
         }
@@ -320,8 +355,8 @@ public class MainActivity extends AppCompatActivity {
 
   private void activeItemMenus(boolean val) {
     item_menu_logs.setEnabled(val);
-    item_menu_a_propos.setEnabled(val);
-    item_menu_param.setEnabled(val);
+    item_menu_a_propos.setEnabled(true);
+    item_menu_param.setEnabled(true);
     item_menu_reboot.setEnabled(val);
   }
   @Override
@@ -462,7 +497,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void connected() {
-    mqttServerConnected = true;
+
   }
 
   public void onFailure(IMqttToken asyncActionToken) {

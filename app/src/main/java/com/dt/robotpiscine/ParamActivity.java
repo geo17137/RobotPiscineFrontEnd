@@ -140,11 +140,14 @@ public class ParamActivity extends AppCompatActivity implements View.OnKeyListen
   public boolean onOptionsItemSelected(MenuItem item){
     if (item.getItemId() == android.R.id.home) {
       if (isChangeParamAdr) {
-        SharedPreferences prefs;
-        prefs = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("brocker", editTextServerAddr.getText().toString());
-        editor.commit();
+        String adr = editTextServerAddr.getText().toString();
+        Unic.getInstance().getMainActivity().getAddress(true, adr);
+//        SharedPreferences prefs;
+//        prefs = getPreferences(Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = prefs.edit();
+//        editor.putString("brocker", editTextServerAddr.getText().toString());
+//        editor.commit();
+//        Unic.getInstance().getMainActivity().getAddress(false);
       }
       tabParam[SCHEDULED_ENABLE] = switchProg.isChecked() ? 1 : 0;
       tabParam[SCHEDULED_TIME_H] = timePickerProg.getHour();
@@ -204,6 +207,8 @@ public class ParamActivity extends AppCompatActivity implements View.OnKeyListen
 
   public void setParam() {
     param = Unic.getInstance().getParam();
+    if (param==null)
+      return;
     sTabParam = param.split(":");
     for (int i = 0; i < sTabParam.length; i++) {
       tabParam[i] = Integer.parseInt(sTabParam[i]);

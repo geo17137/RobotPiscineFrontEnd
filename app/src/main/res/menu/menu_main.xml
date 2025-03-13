@@ -19,12 +19,13 @@
         android:orderInCategory="107"
         android:title="@string/reboot" />
     <item
-        android:orderInCategory="101"
         android:id="@+id/id_a_propos"
+        android:enabled="false"
+        android:orderInCategory="101"
         android:title="A propos" />
     <item
         android:id="@+id/id_action_param"
-        android:enabled="false"
+        android:enabled="true"
         android:orderInCategory="102"
         android:title="Paramètres" />
 </menu>

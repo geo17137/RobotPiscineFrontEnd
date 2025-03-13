@@ -25,6 +25,8 @@ public class AProposActivity extends AppCompatActivity {
     VersionServeurLog = findViewById(R.id.idVersionClient);
     textViewIP = findViewById(R.id.idTextViewIP);
     String clientVersAndIP = Unic.getInstance().getaPropos();
+    if (clientVersAndIP==null)
+      return;
     VersionServeurLog.setText(clientVersAndIP.split(";")[0]);
     textViewIP.setText(clientVersAndIP.split(";")[1]);
   }
