@@ -1,7 +1,6 @@
 package com.dt.robotpiscine;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.DisconnectedBufferOptions;
@@ -60,7 +59,7 @@ class MqttHelper {
     MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
     mqttConnectOptions.setAutomaticReconnect(true);
     mqttConnectOptions.setCleanSession(false);
-    if (!Secret.isPublicServeur) {
+    if (!Secret.isAnonymous) {
       mqttConnectOptions.setUserName(userName);
       mqttConnectOptions.setPassword(password.toCharArray());
     }

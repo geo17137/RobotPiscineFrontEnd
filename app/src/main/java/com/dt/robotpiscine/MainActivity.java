@@ -49,14 +49,22 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Source code for Secret.java
+ * public class Secret {
+ * // If broker is no anonynous
+ *   static final String userName = "xxxxxx";
+ *   static final String password = "xxxxxx";
+ *   // true if anonymous brocker
+ *   static boolean isAnonymous = true;
+ *   // Bocker address
+ *   static final String ADDRESS = "tcp://xxxxx:yyyy";
+ *   // Message prefix if more than one robot
+ *   static final String PREFIX = "_X";
+ * }
+ */
+
 public class MainActivity extends AppCompatActivity {
-//  final static boolean isPublicServeur = true;
-//  final String ADDRESS = "tcp://test.mosquitto.org:1883";
-// // final String ADDRESS = "tcp://broker.mqttdashboard.com:1883";
-//// Adresse valable uniquement pour CNX WiFi
-//  //final String ADDRESS = "tcp://192.168.1.205:1883";
-//  // Force à new address
-//  final boolean FORCE = false;
   final String PREFIX = Secret.PREFIX;
 
   static final int SEEK_BAR_MIN_RANDOM_MIN = 10;
