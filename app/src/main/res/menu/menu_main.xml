@@ -20,7 +20,7 @@
         android:title="@string/reboot" />
     <item
         android:id="@+id/id_a_propos"
-        android:enabled="false"
+        android:enabled="true"
         android:orderInCategory="101"
         android:title="A propos" />
     <item
