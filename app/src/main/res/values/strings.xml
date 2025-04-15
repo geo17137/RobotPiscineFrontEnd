@@ -24,4 +24,6 @@
     <string name="cycle_prog">Cycle programmé à</string>
     <string name="brocker_adr">Adresse du courtier</string>
     <string name="text_duree">Durée commande</string>
+    <string name="no_cycle">\"Pas de cycle en cours\"</string>
+    <string name="cycle_stop">cycle à l\'arrêt</string>
 </resources>
