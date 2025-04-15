@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
   private MenuItem item_menu_param;
   private MenuItem item_menu_reboot;
   private boolean isScheduled;
-
+  private boolean cycleEncours;
 
 
   @Override
@@ -183,6 +183,10 @@ public class MainActivity extends AppCompatActivity {
         texViewGeneralStatus.setTextColor(Color.GREEN);
         buttonStartCycle.setVisibility(View.INVISIBLE);
         buttonStopCycle.setVisibility(View.VISIBLE);
+        buttonForward.setVisibility(View.INVISIBLE);
+        buttonReverse.setVisibility(View.INVISIBLE);
+        texViewCommandStatus.setText("Pause/reprise");
+        cycleEncours = true;
       }
     });
     buttonStopCycle  = findViewById(R.id.imageButtonStopCycle);
@@ -197,6 +201,10 @@ public class MainActivity extends AppCompatActivity {
         texViewButtonStatus.setTextColor(Color.RED);
         buttonStartCycle.setVisibility(View.VISIBLE);
         buttonStopCycle.setVisibility(View.INVISIBLE);
+        buttonForward.setVisibility(View.VISIBLE);
+        buttonReverse.setVisibility(View.VISIBLE);
+        texViewCommandStatus.setText(getString(R.string.manual_stop));
+        cycleEncours = false;
       }
     });
     buttonForward = findViewById(R.id.imageButtonForward);
@@ -242,6 +250,8 @@ public class MainActivity extends AppCompatActivity {
         texViewButtonStatus.setTextColor(Color.RED);
         buttonStartCycle.setVisibility(View.VISIBLE);
         buttonStopCycle.setVisibility(View.INVISIBLE);
+      if (cycleEncours)
+          texViewCommandStatus.setText("Pause/reprise");
       }
     });
 
@@ -443,12 +453,22 @@ public class MainActivity extends AppCompatActivity {
         if (isRunningCycle) {
           buttonStartCycle.setVisibility(View.INVISIBLE);
           buttonStopCycle.setVisibility(View.VISIBLE);
+          buttonForward.setVisibility(View.INVISIBLE);
+          buttonReverse.setVisibility(View.INVISIBLE);
+          texViewCommandStatus.setText("Pause/reprise");
+          cycleEncours = true;
           if (!isScheduled)
             texViewButtonStatus.setText(getString(R.string.cycle_running));
           else
             texViewButtonStatus.setText(getString(R.string.prog_cycle_running));
           texViewButtonStatus.setTextColor(Color.GREEN);
         }
+//        else {
+//          buttonForward.setVisibility(View.VISIBLE);
+//          buttonReverse.setVisibility(View.VISIBLE);
+//          texViewCommandStatus.setText(getString(R.string.manual_stop));
+//          cycleEncours = false;
+//        }
         return;
       case TOPIC_READ_VERSION:
         Unic.getInstance().setaPropos(reponse);
@@ -472,11 +492,11 @@ public class MainActivity extends AppCompatActivity {
         Unic.getInstance().getEditTextLog().setText((Html.fromHtml(Html.fromHtml(reponse).toString())));
         return;
       case TOPIC_RESET_CYCLE:
-        texViewButtonStatus.setText("Cycle à l'arrêt");
+        texViewButtonStatus.setText(getString(R.string.cycle_stop));
         texViewButtonStatus.setTextColor(Color.RED);
-        texViewCommandStatus.setText("Arrêt commande manuelle");
+        texViewCommandStatus.setText(getString(R.string.manual_stop));
         texViewCommandStatus.setTextColor(Color.RED);
-        texViewGeneralStatus.setText("Pas de cycle en cours");
+        texViewGeneralStatus.setText(getString(R.string.no_cycle));
         texViewGeneralStatus.setTextColor(Color.RED);
         buttonStartCycle.setVisibility(View.VISIBLE);
         buttonStopCycle.setVisibility(View.INVISIBLE);

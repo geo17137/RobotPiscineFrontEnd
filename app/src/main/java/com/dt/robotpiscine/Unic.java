@@ -5,7 +5,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 class Unic {
-  final String version = "2025.03.13 [D.T.]";
+  final String version = "2025.04.15 [D.T.]";
   private MainActivity mainActivity;
   private String  param;
 
