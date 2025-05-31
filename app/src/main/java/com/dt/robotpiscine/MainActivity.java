@@ -1,20 +1,3 @@
-/*
- * Commande de porte de garage
- * Version 2.0
- * Cette version contrairement à la version 1.x
- * utilise un capteur en position ouverte et
- * un capteur en position fermée.
- * Cela permet d'être certain que mécanisme a bien fermé
- * la porte et permet de savoir si la porte n'est pas entre deux positions.
- */
-/*
- * Pilotage porte garage V4.0
- * V4.0 Utilise le protocole MQTT à la place de Apache/php
- * Utilise un fichier pour paramètrer les alertes
- * Ajout de version 3.1 : 2 fermetures automatiques programmables
- * Ajout de version 3.2 : 2 pas d'authentification si wifi local connecté
- */
-/* TODO gérer les activations des menus */
 package com.dt.robotpiscine;
 
 import android.Manifest;
