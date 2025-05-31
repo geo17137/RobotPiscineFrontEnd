@@ -25,8 +25,10 @@ public class AProposActivity extends AppCompatActivity {
     VersionServeurLog = findViewById(R.id.idVersionClient);
     textViewIP = findViewById(R.id.idTextViewIP);
     String clientVersAndIP = Unic.getInstance().getaPropos();
-    VersionServeurLog.setText(clientVersAndIP.split(";")[0]);
-    textViewIP.setText(clientVersAndIP.split(";")[1]);
+    if (clientVersAndIP != null) {
+      VersionServeurLog.setText(clientVersAndIP.split(";")[0]);
+      textViewIP.setText(clientVersAndIP.split(";")[1]);
+    }
   }
   public boolean onOptionsItemSelected(MenuItem item){
     if (item.getItemId() == android.R.id.home) {
