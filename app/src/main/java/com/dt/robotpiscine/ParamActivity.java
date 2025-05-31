@@ -77,7 +77,7 @@ public class ParamActivity extends AppCompatActivity implements View.OnKeyListen
     seekBarMaxRandom_av = findViewById(R.id.seekBarMaxRandomAV);
     seekBarMaxRandom_av.setOnSeekBarChangeListener(this);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      seekBarMaxRandom_av.setMin(MainActivity.SEEK_BAR_MIN_RANDOM_MAX);
+      seekBarMaxRandom_av.setMin(MainActivity.SEEK_BAR_MAX_RANDOM_MIN);
       seekBarMaxRandom_av.setMax(MainActivity.SEEK_BAR_MAX_RANDOM_MAX);
     }
 
@@ -91,7 +91,7 @@ public class ParamActivity extends AppCompatActivity implements View.OnKeyListen
     seekBarMaxRandom_ar = findViewById(R.id.seekBarMaxRandomAR);
     seekBarMaxRandom_ar.setOnSeekBarChangeListener(this);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      seekBarMaxRandom_ar.setMin(MainActivity.SEEK_BAR_MIN_RANDOM_MAX);
+      seekBarMaxRandom_ar.setMin(MainActivity.SEEK_BAR_MAX_RANDOM_MIN);
       seekBarMaxRandom_ar.setMax(MainActivity.SEEK_BAR_MAX_RANDOM_MAX);
     }
 

@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
   static final int SEEK_BAR_MIN_RANDOM_MIN = 10;
   static final int SEEK_BAR_MIN_RANDOM_MAX = 40;
+  static final int SEEK_BAR_MAX_RANDOM_MIN = 20;
   static final int SEEK_BAR_MAX_RANDOM_MAX = 100;
   private static final String TAG = "mqtt";
 
