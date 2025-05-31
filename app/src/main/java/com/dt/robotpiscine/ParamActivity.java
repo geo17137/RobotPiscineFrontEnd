@@ -1,5 +1,7 @@
 package com.dt.robotpiscine;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -172,11 +174,12 @@ public class ParamActivity extends AppCompatActivity implements View.OnKeyListen
       if (isChangeParamAdr) {
         String adr = editTextServerAddr.getText().toString();
         Unic.getInstance().getMainActivity().getAddress(true, adr);
-//        SharedPreferences prefs;
-//        prefs = getPreferences(Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.putString("brocker", editTextServerAddr.getText().toString());
-//        editor.commit();
+
+        SharedPreferences prefs;
+        prefs = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("brocker", editTextServerAddr.getText().toString());
+        editor.commit();
 //        Unic.getInstance().getMainActivity().getAddress(false);
       }
       tabParam[SCHEDULED_ENABLE] = switchProg.isChecked() ? 1 : 0;

@@ -40,7 +40,7 @@ import java.util.Collections;
  *   static final String password = "xxxxxx";
  *   // true if anonymous brocker
  *   static boolean isAnonymous = true;
- *   // Bocker address
+ *   // Brocker address
  *   static final String ADDRESS = "tcp://xxxxx:yyyy";
  *   // Message prefix if more than one robot
  *   static final String PREFIX = "_X";
