@@ -1,7 +1,5 @@
 package com.dt.robotpiscine;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -9,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -19,6 +18,8 @@ import android.widget.TimePicker;
 
 public class ParamActivity extends AppCompatActivity implements View.OnKeyListener, SeekBar.OnSeekBarChangeListener {
   private EditText editTextServerAddr;
+  static EditText editTextMqttUser;
+  static EditText editTextMqttPassword;
 
   private TextView textViewMinRandomAV;
   private TextView textViewMaxRandomAV;
@@ -26,6 +27,8 @@ public class ParamActivity extends AppCompatActivity implements View.OnKeyListen
   private TextView textViewMaxRandomAR;
   private TextView textViewNbCycle;
   private TextView textViewDureeCycles;
+  private TextView textViewLogin;
+  private TextView textViewPasswd;
   private SeekBar seekBarMinRandom_av;
   private SeekBar seekBarMaxRandom_av;
   private SeekBar seekBarMinRandom_ar;
@@ -36,6 +39,8 @@ public class ParamActivity extends AppCompatActivity implements View.OnKeyListen
   private Switch switchLog = null;
   private Switch switchReverse = null;
   private TimePicker timePickerProg;
+
+  static CheckBox checkBoxPrivate;
   private boolean isChangeParamAdr;
   private String logStatus;
   private boolean listenerLockSwitch;
@@ -75,6 +80,8 @@ public class ParamActivity extends AppCompatActivity implements View.OnKeyListen
     textViewMaxRandomAR = findViewById(R.id.textViewMaxRandomAR);
     textViewNbCycle = findViewById(R.id.textViewNbCycle);
     textViewDureeCycles = findViewById(R.id.textViewCycleTime);
+    textViewLogin =  findViewById(R.id.textViewLogin);
+    textViewPasswd =  findViewById(R.id.textViewPasswd);
 
     seekBarMaxRandom_av = findViewById(R.id.seekBarMaxRandomAV);
     seekBarMaxRandom_av.setOnSeekBarChangeListener(this);
@@ -127,8 +134,6 @@ public class ParamActivity extends AppCompatActivity implements View.OnKeyListen
     timePickerProg.setIs24HourView(true);
     timePickerProg.setHour(tabParam[SCHEDULED_TIME_H]);
     timePickerProg.setMinute(tabParam[SCHEDULED_TIME_M]);
-
-
     switchProg = findViewById(R.id.switchProg);
     switchProg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
@@ -159,29 +164,54 @@ public class ParamActivity extends AppCompatActivity implements View.OnKeyListen
       }
     });
     switchReverse.setChecked(tabParam[REVERSE] == 1);
-
     editTextServerAddr = findViewById(R.id.editTextServerAddr);
-    String adrPort = Unic.getInstance().getServerGarageAddress();
+    String adrPort = Unic.getInstance().getBrockerAddress();
     int from = adrPort.indexOf(":", 6);
     String adr = adrPort.substring(0, from);
     String port = adrPort.substring(from+1);
     editTextServerAddr.setText(adr+":"+port);
     editTextServerAddr.setOnKeyListener(this);
+
+    editTextMqttUser = findViewById(R.id.editTextLogin);
+    editTextMqttPassword =findViewById(R.id.editTextPassword);
+    checkBoxPrivate = findViewById(R.id.checkBoxPrivBroker);
+    checkBoxPrivate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            if (checkBoxPrivate.isChecked()) {
+              textViewLogin.setVisibility(View.VISIBLE);
+              textViewPasswd.setVisibility(View.VISIBLE);
+              editTextMqttUser.setVisibility(View.VISIBLE);
+              editTextMqttPassword.setVisibility(View.VISIBLE);
+              Secret.privateBrocker = true;
+            }
+            else {
+              textViewLogin.setVisibility(View.INVISIBLE);
+              textViewPasswd.setVisibility(View.INVISIBLE);
+              editTextMqttUser.setVisibility(View.INVISIBLE);
+              editTextMqttPassword.setVisibility(View.INVISIBLE);
+              Secret.privateBrocker = false;
+            }
+        }
+      }
+    );
+    Unic.getInstance().getMainActivity().initParamActivityControls();
   }
 
   public boolean onOptionsItemSelected(MenuItem item){
-    if (item.getItemId() == android.R.id.home) {
-      if (isChangeParamAdr) {
-        String adr = editTextServerAddr.getText().toString();
-        Unic.getInstance().getMainActivity().getAddress(true, adr);
 
-        SharedPreferences prefs;
-        prefs = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("brocker", editTextServerAddr.getText().toString());
-        editor.commit();
-//        Unic.getInstance().getMainActivity().getAddress(false);
+    if (item.getItemId() == android.R.id.home) {
+      if (checkBoxPrivate.isChecked()) {
+        String loginName = editTextMqttUser.getText().toString();
+        MqttHelper.userName = loginName;
+        String passwd = editTextMqttPassword.getText().toString();
+        MqttHelper.password = passwd;
+        Unic.getInstance().getMainActivity().saveMqttUser(loginName, passwd);
       }
+      Unic.getInstance().getMainActivity().saveCheckboxPrivateState(checkBoxPrivate.isChecked());
+
+      String adr = editTextServerAddr.getText().toString();
+      Unic.getInstance().getMainActivity().saveBrockerAddress(adr);
+
       tabParam[SCHEDULED_ENABLE] = switchProg.isChecked() ? 1 : 0;
       tabParam[SCHEDULED_TIME_H] = timePickerProg.getHour();
       tabParam[SCHEDULED_TIME_M] = timePickerProg.getMinute();

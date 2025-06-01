@@ -15,10 +15,8 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 
 class MqttHelper {
-
-//  private String serverUri; // = "tcp://192.168.1.204:1883";
-  private static final String userName = "mqtt_user";
-  private static final String password = "1503487174!";
+  static String userName = "";
+  static String password = "";
 
   private static final String TAG = "mqtt";
   private final MainActivity mainActivity;
@@ -59,7 +57,7 @@ class MqttHelper {
     MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
     mqttConnectOptions.setAutomaticReconnect(true);
     mqttConnectOptions.setCleanSession(false);
-    if (!Secret.isAnonymous) {
+    if (Secret.privateBrocker) {
       mqttConnectOptions.setUserName(userName);
       mqttConnectOptions.setPassword(password.toCharArray());
     }

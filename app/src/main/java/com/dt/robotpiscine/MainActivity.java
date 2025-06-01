@@ -1,5 +1,4 @@
 package com.dt.robotpiscine;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
@@ -34,17 +32,15 @@ import java.util.Collections;
 
 /**
  * Source code for Secret.java
- * public class Secret {
- * // If broker is no anonynous
- *   static final String userName = "xxxxxx";
- *   static final String password = "xxxxxx";
- *   // true if anonymous brocker
- *   static boolean isAnonymous = true;
- *   // Brocker address
- *   static final String ADDRESS = "tcp://xxxxx:yyyy";
- *   // Message prefix if more than one robot
- *   static final String PREFIX = "_X";
- * }
+   public class Secret {
+   // For private brocker
+   static String mqttUser = "xxxxx";
+   static String mqttPasswd = "yyyyyy";
+   // true for private broker
+   static boolean privateBrocker = true;
+   static final String ADDRESS = "tcp://xxxxx:1883";
+   static final String PREFIX = "_X";
+  }
  */
 
 public class MainActivity extends AppCompatActivity {
@@ -107,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
   private MenuItem item_menu_reboot;
   private boolean isScheduled;
   private boolean cycleEncours;
+  private SharedPreferences prefs;
+  private SharedPreferences.Editor editor;
 
 
   @Override
@@ -117,40 +115,65 @@ public class MainActivity extends AppCompatActivity {
 
   /**
    * Appelée lorsque que l’activité est arrêtée.
-   * Vider  le cache de l'application
+   * Vide le cache de l'application
    */
   @Override
   public void onDestroy() {
     super.onDestroy();
   }
 
-  public String getAddress(boolean force, String address) {
-    SharedPreferences prefs;
-    prefs = getPreferences(Context.MODE_PRIVATE);
-    SharedPreferences.Editor editor;
-    editor = prefs.edit();
-    String brocker = prefs.getString("brocker", null);
-    if (brocker == null || force) {
-      editor.putString("brocker", address);
-      editor.commit();
-      return Secret.ADDRESS;
+  public String getAddress() {
+    String checkboxPrivateState = prefs.getString("checkbox_private", null);
+    boolean isPrivate = "1".equals(checkboxPrivateState);
+    Secret.privateBrocker =  isPrivate;
+    if (isPrivate) {
+      String mqttUser = prefs.getString("mqtt_user", null);
+      MqttHelper.userName = mqttUser;
+      String mqttPasswd = prefs.getString("mqtt_passwd", null);
+      MqttHelper.password = mqttPasswd;
     }
+    String brocker = prefs.getString("brocker", null);
     return brocker;
   }
+  public void saveBrockerAddress(String address) {
+    editor.putString("brocker", address);
+    editor.commit();
+  }
+  public void initParamActivityControls() {
+    String mqttUser = prefs.getString("mqtt_user", null);
+    ParamActivity.editTextMqttUser.setText(mqttUser);
+    String mqttPasswd = prefs.getString("mqtt_passwd", null);
+    ParamActivity.editTextMqttPassword.setText(mqttPasswd);
+    String checkboxPrivateState = prefs.getString("checkbox_private", null);
+    ParamActivity.checkBoxPrivate.setChecked("1".equals(checkboxPrivateState));
+  }
+  public void saveMqttUser(String mqttUser, String passwd) {
+    editor.putString("mqtt_user", mqttUser);
+    editor.commit();
+    editor.putString("mqtt_passwd", passwd);
+    editor.commit();
+  }
 
+  public void saveCheckboxPrivateState(boolean isChecked) {
+    editor.putString("checkbox_private", isChecked ? "1" : "0");
+    editor.commit();
+  }
+
+  public boolean initLocalPermanentData(String topic, String value) {
+    String data =  prefs.getString(topic, null);
+    if (data == null) {
+      editor.putString(topic, value);
+      editor.commit();
+      return true;
+    }
+    return false;
+  }
   @SuppressLint("MissingInflatedId")
   private void startApp() {
-    String serverAddress = null;
-    serverAddress = getAddress(false, Secret.ADDRESS);
-    Unic.getInstance().setServerAddress(serverAddress);
-    if (serverAddress == null)
-      System.exit(1);
     setContentView(R.layout.activity_main);
     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     Unic.getInstance().setMainActivity(this);
     setTitle("Robot piscine");
-    mqttHelper = new MqttHelper(this, serverAddress);
-    paramActivity = new ParamActivity();
     textViewCnxStatus   = findViewById(R.id.textViewCnxStatus);
     texViewButtonStatus = findViewById(R.id.textViewButtonStatus);
     texViewButtonStatus.setText(getString(R.string.cycle_stopping));
@@ -283,6 +306,17 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(this, 1000);
       }
     }, 500);
+
+    prefs = getPreferences(Context.MODE_PRIVATE);
+    editor = prefs.edit();
+    initLocalPermanentData("checkbox_private", Secret.privateBrocker ? "1":"0");
+    initLocalPermanentData("mqtt_user", Secret.mqttUser);
+    initLocalPermanentData("mqtt_passwd", Secret.mqttPasswd);
+    initLocalPermanentData("brocker", Secret.ADDRESS);
+    String serverAddress = getAddress();
+    Unic.getInstance().setBrockerAddress(serverAddress);
+    mqttHelper = new MqttHelper(this, serverAddress);
+    paramActivity = new ParamActivity();
     init = true;
   }
 
@@ -297,7 +331,6 @@ public class MainActivity extends AppCompatActivity {
       startApp();
     }
   }
-
 
   @SuppressWarnings("IfStatementMissingBreakInLoop")
   @Override

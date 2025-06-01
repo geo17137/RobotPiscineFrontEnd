@@ -1,11 +1,9 @@
 package com.dt.robotpiscine;
 
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 
 class Unic {
-  final String version = "2025.05.31 [D.T.]";
+  final String version = "2025.06.01 [D.T.]";
   private MainActivity mainActivity;
   private String  param;
 
@@ -45,11 +43,11 @@ class Unic {
   private Unic() {
   }
 
-  public void setServerAddress(String serverAddress) {
+  public void setBrockerAddress(String serverAddress) {
     this.serverAddress = serverAddress;
   }
 
-  public String getServerGarageAddress() {
+  public String getBrockerAddress() {
     return serverAddress;
   }
 

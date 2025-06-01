@@ -18,13 +18,13 @@
 
     <Switch
         android:id="@+id/switchReverse"
-        android:layout_width="125dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="32dp"
+        android:layout_width="138dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:scaleX="0.75"
         android:scaleY="0.75"
-        android:text="Inverser sens"
+        android:text="Inverser AV/AR"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/seekBarMaxRandomAR"
         app:layout_constraintTop_toBottomOf="@+id/seekBarCleanTime" />
@@ -217,7 +217,6 @@
         android:layout_width="369dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -244,8 +243,64 @@
         android:layout_height="4dp"
         android:layout_marginTop="16dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/editTextServerAddr"
-        tools:layout_editor_absoluteX="1dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLogin"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="1dp" />
+
+    <CheckBox
+        android:id="@+id/checkBoxPrivBroker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="Private"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextServerAddr" />
+
+    <TextView
+        android:id="@+id/textViewLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="4dp"
+        android:text="Login name"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextServerAddr" />
+
+    <TextView
+        android:id="@+id/textViewPasswd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="4dp"
+        android:text="Password"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/textViewLogin"
+        app:layout_constraintTop_toBottomOf="@+id/editTextServerAddr" />
+
+    <EditText
+        android:id="@+id/editTextLogin"
+        android:layout_width="110dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxPrivBroker"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLogin" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="100dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="4dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/editTextLogin"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPasswd" />
 
 </android.support.constraint.ConstraintLayout>
